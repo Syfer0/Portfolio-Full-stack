@@ -11,19 +11,19 @@ import { Box, HStack } from "@chakra-ui/react";
 const socials = [
   {
     icon: faEnvelope,
-    url: "mailto: hello@example.com",
+    url: "mailto: armanmulaniwork81@gmail.com",
   },
   {
     icon: faGithub,
-    url: "https://github.com",
+    url: "https://github.com/Syfer0",
   },
   {
     icon: faLinkedin,
-    url: "https://www.linkedin.com",
+    url: "https://www.linkedin.com/in/arman-mulani-a04a44266/",
   },
   {
     icon: faMedium,
-    url: "https://medium.com",
+    url: "https://medium.com/@armanmulaniwork81",
   },
 ];
 

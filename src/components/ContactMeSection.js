@@ -16,6 +16,9 @@ import * as Yup from "yup";
 import FullScreenSection from "./FullScreenSection";
 import useSubmit from "../hooks/useSubmit";
 import { useAlertContext } from "../context/alertContext";
+import { addDoc, collection } from "firebase/firestore"; // Import Firestore functions
+
+import db from "../config/firebase-config";
 
 const ContactMeSection = () => {
   const { isLoading, response, submit } = useSubmit();
@@ -29,8 +32,24 @@ const ContactMeSection = () => {
       type: "hireMe",
       comment: "",
     },
-    onSubmit: (values) => {
-      submit("", values);
+    onSubmit: async (values, { setSubmitting }) => {
+      try {
+        console.log("Submitted values:", values); // Log the submitted values (optional)
+
+        // Save the form data to Firebase
+        await addDoc(collection(db, "contacts"), values);
+
+        // Display a success message with the user's first name
+        submit(
+          "success",
+          `Thanks for your submission, ${values.firstName}! We will get back to you shortly.`
+        );
+      } catch (error) {
+        console.error("Error adding document: ", error);
+        submit("error", "Failed to submit the form. Please try again later.");
+      } finally {
+        setSubmitting(false); // Make sure to set submitting to false
+      }
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required("Required"),
